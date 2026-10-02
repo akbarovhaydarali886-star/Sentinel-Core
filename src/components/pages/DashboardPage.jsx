@@ -3,6 +3,7 @@ import { usePortfolio } from "../../context/PortfolioContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { MetricCards } from "../dashboard/MetricCards";
 import { AssetAllocation } from "../dashboard/AssetAllocation";
+import { InteractiveWallet3D } from "../dashboard/InteractiveWallet3D";
 import {
   Wallet,
   TrendingUp,
@@ -57,10 +58,10 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
     <div className="space-y-6 animate-in fade-in duration-300">
       
       {/* Top Welcome Banner & Quick Actions */}
-      <div className="neo-box rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="glass-neo rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-1.5 z-10">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 text-[10px] font-extrabold rounded-md bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+            <span className="px-2.5 py-0.5 text-[10px] font-extrabold rounded-md bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
               ● REAL-TIME AUDIT
             </span>
             <span className="text-xs text-slate-400 font-mono">
@@ -78,7 +79,7 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
         <div className="flex items-center gap-3 z-10 w-full sm:w-auto">
           <button
             onClick={() => depositFunds(5000)}
-            className="flex-1 sm:flex-initial px-5 py-3 neo-btn neo-box-hover rounded-2xl text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center gap-2 cursor-pointer"
+            className="flex-1 sm:flex-initial px-5 py-3 glass-btn rounded-2xl text-xs font-bold text-emerald-400 border border-emerald-500/30 flex items-center justify-center gap-2 cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" />
             <span>{t("quickDeposit")}</span>
@@ -99,22 +100,22 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
       {/* 4 Core Financial Metric Cards */}
       <MetricCards />
 
-      {/* Main Grid: Growth Trajectory & Asset Allocation */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Main Grid: Growth Trajectory Chart & 3D Physical Wallet */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Performance Milestones Chart */}
-        <div className="lg:col-span-2 neo-box rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between">
+        {/* Performance Milestones Chart (7 cols) */}
+        <div className="lg:col-span-7 glass-neo rounded-3xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-cyan-500" />
+                <BarChart3 className="w-4 h-4 text-cyan-400" />
                 {t("performanceMilestones")}
               </h3>
               <p className="text-[11px] text-slate-400">
                 O'tgan 6 oylik umumiy kapital o'sish dinamikasi (+28.4% Alpha)
               </p>
             </div>
-            <span className="px-2.5 py-1 text-xs font-bold text-emerald-500 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+            <span className="px-2.5 py-1 text-xs font-bold text-emerald-400 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
               +28.4% YTD
             </span>
           </div>
@@ -141,7 +142,7 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
                   content={({ active, payload }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="neo-box p-3 rounded-2xl border border-cyan-500/30">
+                        <div className="glass-neo p-3 rounded-2xl border border-cyan-500/30">
                           <span className="text-[10px] text-slate-400">{payload[0].payload.month} 2026</span>
                           <div className="text-sm font-black font-mono text-cyan-400">
                             ${payload[0].value?.toLocaleString()}
@@ -165,23 +166,28 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
           </div>
         </div>
 
-        {/* Asset Allocation Donut */}
-        <div>
-          <AssetAllocation
-            onSelectAsset={(id) => {
-              setSelectedAssetId(id);
-              setActivePage("trade");
-            }}
-          />
+        {/* 3D Physical Stitched Wallet Widget (5 cols) */}
+        <div className="lg:col-span-5 flex flex-col">
+          <InteractiveWallet3D />
         </div>
       </div>
 
+      {/* Grid: Asset Allocation Donut */}
+      <div className="grid grid-cols-1 gap-6">
+        <AssetAllocation
+          onSelectAsset={(id) => {
+            setSelectedAssetId(id);
+            setActivePage("trade");
+          }}
+        />
+      </div>
+
       {/* Complete Holdings Breakdown Table */}
-      <div className="neo-box rounded-3xl p-5 sm:p-6 relative overflow-hidden">
+      <div className="glass-neo rounded-3xl p-5 sm:p-6 relative overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2">
-              <Coins className="w-4 h-4 text-cyan-500" />
+              <Coins className="w-4 h-4 text-cyan-400" />
               {t("yourHoldings")}
             </h3>
             <p className="text-[11px] text-slate-400">
@@ -193,7 +199,7 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200/60 dark:border-slate-800/80 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <tr className="border-b border-slate-200/60 dark:border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                 <th className="py-3 px-3">{t("coin")}</th>
                 <th className="py-3 px-3">{t("price")}</th>
                 <th className="py-3 px-3">24s O'zgarish</th>
@@ -202,14 +208,14 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
                 <th className="py-3 px-3 text-right">{t("action")}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200/40 dark:divide-slate-800/60">
+            <tbody className="divide-y divide-slate-200/40 dark:divide-white/5">
               {assets.map((asset) => {
                 const valueUsd = asset.holdings * asset.price;
                 const isPositive = asset.change24h >= 0;
                 return (
                   <tr
                     key={asset.id}
-                    className="hover:bg-slate-100/60 dark:hover:bg-slate-800/40 transition-colors"
+                    className="hover:bg-slate-100/60 dark:hover:bg-white/5 transition-colors"
                   >
                     <td className="py-3.5 px-3">
                       <div className="flex items-center gap-2.5">
@@ -236,8 +242,8 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
                       <span
                         className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[11px] ${
                           isPositive
-                            ? "text-emerald-500 bg-emerald-500/10"
-                            : "text-rose-500 bg-rose-500/10"
+                            ? "text-emerald-400 bg-emerald-500/10"
+                            : "text-rose-400 bg-rose-500/10"
                         }`}
                       >
                         {isPositive ? "+" : ""}
@@ -256,7 +262,7 @@ export const DashboardPage = ({ setActivePage, setSelectedAssetId }) => {
                           setSelectedAssetId(asset.id);
                           setActivePage("trade");
                         }}
-                        className="px-3 py-1.5 neo-btn neo-box-hover rounded-xl text-xs font-bold text-cyan-600 dark:text-cyan-400 cursor-pointer"
+                        className="px-3 py-1.5 glass-btn rounded-xl text-xs font-bold text-cyan-400 cursor-pointer"
                       >
                         {t("tradeNow")}
                       </button>
