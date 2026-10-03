@@ -6,6 +6,7 @@ import { PortfolioProvider } from "./context/PortfolioContext";
 
 import { LeftSidebar } from "./components/common/LeftSidebar";
 import { Header } from "./components/common/Header";
+import { BottomNav } from "./components/common/BottomNav";
 import { CommandPalette } from "./components/common/CommandPalette";
 import { NotificationToast } from "./components/common/NotificationToast";
 import { AuthModal } from "./components/auth/AuthModal";
@@ -25,7 +26,7 @@ const MainLayout = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-300 flex flex-col selection:bg-cyan-500 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] transition-colors duration-300 flex flex-col selection:bg-cyan-500 selection:text-white relative overflow-x-hidden pb-16 lg:pb-0">
       
       {/* Background Ambient Neon Glow Orbs (Tri-Fusion Atmosphere) */}
       <div className="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
@@ -39,12 +40,13 @@ const MainLayout = () => {
         setIsMobileOpen={setIsMobileSidebarOpen}
       />
 
-      {/* Main Content Area shifted right for the left sidebar */}
+      {/* Main Content Area shifted right for the left sidebar on desktop */}
       <div className="lg:pl-80 flex-1 flex flex-col min-h-screen z-10">
         
-        {/* Top Header Bar */}
+        {/* Top Header Bar with direct page tabs */}
         <Header
           activePage={activePage}
+          setActivePage={setActivePage}
           onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
         />
@@ -98,6 +100,9 @@ const MainLayout = () => {
           </div>
         </footer>
       </div>
+
+      {/* Mobile Bottom Navigation Bar (Visible on mobile & tablet) */}
+      <BottomNav activePage={activePage} setActivePage={setActivePage} />
 
       {/* Modals & Overlays */}
       <AuthModal />
